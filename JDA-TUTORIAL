@@ -1,0 +1,32 @@
+package Main;
+
+import javax.security.auth.login.LoginException;
+
+import Commands.Countdown;
+import Commands.HelpCommand;
+import Commands.UCPluginDiscordListener;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+
+public class Main {
+
+	public static String PREFIX = "?";
+	
+	public static void main(String[] args) throws LoginException {
+		
+		String token = "VOTRE TOKEN";
+		
+		JDABuilder jda = JDABuilder.createDefault(token);
+		jda.setStatus(OnlineStatus.ONLINE);
+		jda.setActivity(Activity.playing(Main.PREFIX + "help"));
+		jda.addEventListeners(new HelpCommand());
+		jda.addEventListeners(new UCPluginDiscordListener());
+		jda.addEventListeners(new Countdown());
+		
+		jda.build();
+		
+
+	}
+	
+}
